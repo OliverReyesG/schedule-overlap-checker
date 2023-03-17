@@ -34,3 +34,23 @@ class EmployeeScheduleParser(FileParser):
             schedule = [ScheduleRecord(day=record[1], arrival_time=record[2], leave_time=record[3]) for record in raw_schedule_records]
             employees.append(Employee(name=employee_name, schedule=schedule))
         return employees
+
+
+def check_day_overlap(record1: ScheduleRecord, record2: ScheduleRecord):
+    if record1.day == record2.day:
+        return True
+    return False
+
+
+def check_time_overlap(record1: ScheduleRecord, record2: ScheduleRecord):
+    if record1.arrival_time >= record2.arrival_time and record1.leave_time <= record2.leave_time:
+        return True
+    return False
+
+def count_overlap(employee1: Employee, employee2: Employee):
+    overlap_count = 0
+    for schedule_record1 in employee1.schedule:
+        for schedule_record2 in employee2.schedule:
+            if check_day_overlap(schedule_record1, schedule_record2) and check_time_overlap(schedule_record1, schedule_record2):
+                overlap_count += 1
+    return overlap_count
