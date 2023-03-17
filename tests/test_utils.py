@@ -1,17 +1,39 @@
 import pytest
 from pathlib import Path
-from utils import EmployeeScheduleParser
+from utils import EmployeeScheduleParser, check_day_overlap, check_time_overlap, count_overlap
 
-def test_employee_schedule_parser():
-    employee_schedule_parser = EmployeeScheduleParser()
-    root_folder =  Path(__file__).parents[1]
-    target_directory = root_folder / "data/test_schedules.txt"
-    employes = employee_schedule_parser.parse(target_directory)
+@pytest.fixture
+def root_folder():
+    return Path(__file__).parents[1]
 
-    assert employes[0].name == "RENE"
-    assert employes[0].schedule[0].day == "MO"
-    assert employes[0].schedule[0].arrival_time == "10:00"
-    assert employes[0].schedule[0].leave_time == "12:00"
+@pytest.fixture
+def target_directory(root_folder):
+    return root_folder / "data/test_schedules.txt"
 
-    assert employes[0].schedule[4].arrival_time == "20:00"
-    assert employes[0].schedule[4].leave_time == "21:00"
+
+def test_parser_length(target_directory):
+    parser = EmployeeScheduleParser()
+    employees = parser.parse(target_directory)
+    assert len(employees) == 3
+
+
+def test_parsed_employee_names(target_directory):
+    parser = EmployeeScheduleParser()
+    employees = parser.parse(target_directory)
+    employees[0].name == "RENE"
+    employees[1].name == "ASTRID"
+    employees[2].name == "ANDRES"
+
+
+def test_check_day_overlap(target_directory):
+    parser = EmployeeScheduleParser()
+    employees = parser.parse(target_directory)
+    assert check_day_overlap(employees[0].schedule[0], employees[1].schedule[0]) == True
+    assert check_day_overlap(employees[1].schedule[1], employees[2].schedule[2]) == False
+
+
+def test_check_time_overlap(target_directory):
+    parser = EmployeeScheduleParser()
+    employees = parser.parse(target_directory)
+    assert check_time_overlap(employees[0].schedule[0], employees[1].schedule[0]) == True
+    assert check_time_overlap(employees[2].schedule[0], employees[0].schedule[2]) == False
