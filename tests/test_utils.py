@@ -2,9 +2,11 @@ import pytest
 from pathlib import Path
 from utils import EmployeeScheduleParser, check_day_overlap, check_time_overlap, count_overlap
 
+
 @pytest.fixture
 def root_folder():
     return Path(__file__).parents[1]
+
 
 @pytest.fixture
 def target_directory(root_folder):

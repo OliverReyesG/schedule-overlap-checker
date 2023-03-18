@@ -1,8 +1,9 @@
 from dataclasses import dataclass
-from typing import List
+from typing import Dict
 from .schedule import ScheduleRecord
+
 
 @dataclass
 class Employee:
     name: str
-    schedule_records: List[ScheduleRecord]
+    schedule_records: Dict[str, ScheduleRecord]

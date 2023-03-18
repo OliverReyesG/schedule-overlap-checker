@@ -4,6 +4,7 @@ import re
 from models.employee import Employee
 from models.schedule import ScheduleRecord
 
+
 class FileParser(ABC):
     def __read_file(self, path):
         pass
@@ -13,7 +14,6 @@ class FileParser(ABC):
 
 
 class EmployeeScheduleParser(FileParser):
-
     def __init__(self):
         pass
 
@@ -34,7 +34,6 @@ class EmployeeScheduleParser(FileParser):
             schedule_records = {f"{day}": ScheduleRecord(arrival_time=arrival_time, leave_time=leave_time) for (match, day, arrival_time, leave_time) in raw_schedule_records}
             employees.append(Employee(name=employee_name, schedule_records=schedule_records))
         return employees
-
 
 
 def check_time_overlap(record1: ScheduleRecord, record2: ScheduleRecord):
