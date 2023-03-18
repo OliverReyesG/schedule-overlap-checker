@@ -5,4 +5,4 @@ from .schedule import ScheduleRecord
 @dataclass
 class Employee:
     name: str
-    schedule: List[ScheduleRecord]
+    schedule_records: List[ScheduleRecord]

@@ -31,15 +31,10 @@ class EmployeeScheduleParser(FileParser):
         for line in file:
             employee_name = re.search(name_pattern, line).group(1)
             raw_schedule_records = re.findall(schedule_record_pattern, line)
-            schedule = [ScheduleRecord(day=record[1], arrival_time=record[2], leave_time=record[3]) for record in raw_schedule_records]
-            employees.append(Employee(name=employee_name, schedule=schedule))
+            schedule_records = {f"{day}": ScheduleRecord(arrival_time=arrival_time, leave_time=leave_time) for (match, day, arrival_time, leave_time) in raw_schedule_records}
+            employees.append(Employee(name=employee_name, schedule_records=schedule_records))
         return employees
 
-
-def check_day_overlap(record1: ScheduleRecord, record2: ScheduleRecord):
-    if record1.day == record2.day:
-        return True
-    return False
 
 
 def check_time_overlap(record1: ScheduleRecord, record2: ScheduleRecord):
@@ -47,10 +42,10 @@ def check_time_overlap(record1: ScheduleRecord, record2: ScheduleRecord):
         return True
     return False
 
-def count_overlap(employee1: Employee, employee2: Employee):
+
+def count_schedule_overlap(schedule1: dict, schedule2: dict):
     overlap_count = 0
-    for schedule_record1 in employee1.schedule:
-        for schedule_record2 in employee2.schedule:
-            if check_day_overlap(schedule_record1, schedule_record2) and check_time_overlap(schedule_record1, schedule_record2):
-                overlap_count += 1
+    for key in schedule1.keys():
+        if key in schedule2.keys() and check_time_overlap(schedule1[key], schedule2[key]):
+            overlap_count += 1
     return overlap_count
