@@ -14,10 +14,6 @@ class FileParser(ABC):
 
 
 class EmployeeScheduleParser(FileParser):
-    def __init__(self):
-        pass
-
-    
     def __read_file(self, path: str) -> List[str]:
         with open(path) as f:
             return f.readlines()
