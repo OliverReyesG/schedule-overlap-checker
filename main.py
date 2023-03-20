@@ -1,11 +1,8 @@
-from utils import EmployeeScheduleParser, count_schedule_overlap
-
+from utils import EmployeeScheduleParser
+from reports.schedule_reports import ScheduleOverlapReport
 
 parser = EmployeeScheduleParser()
-employees = parser.parse("data/test_schedules.txt")
-
-
-for i in range(len(employees) - 1):
-    for j in range(i+1, len(employees)):
-        names = employees[i].name + "-" + employees[j].name
-        print(names+":", count_schedule_overlap(employees[i].schedule_records, employees[j].schedule_records))
+reporter = ScheduleOverlapReport(parser=parser)
+report = reporter.generate("data/test_schedules.txt")
+for (names, overlap_count) in report:
+    print(names +  ":", overlap_count)
