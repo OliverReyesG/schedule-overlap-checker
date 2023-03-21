@@ -9,7 +9,7 @@ class EmployeeReport(ABC):
         self.parser = parser
     
     
-    def generate(self, path: str):
+    def generate(self, path: str) -> List[Tuple[str, int]]:
         pass
 
 
