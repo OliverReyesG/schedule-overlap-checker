@@ -1,8 +1,9 @@
 from utils import EmployeeScheduleParser
 from reports.schedule_reports import ScheduleOverlapReport
+from reports.report_renderer import ConsoleRenderer
 
-parser = EmployeeScheduleParser()
-reporter = ScheduleOverlapReport(parser=parser)
-report = reporter.generate("data/test_schedules.txt")
-for (names, overlap_count) in report:
-    print(names +  ":", overlap_count)
+
+report_generator = ScheduleOverlapReport(EmployeeScheduleParser())
+report_renderer = ConsoleRenderer()
+report = report_generator.generate("data/test_schedules.txt")
+report_renderer.render(report)
