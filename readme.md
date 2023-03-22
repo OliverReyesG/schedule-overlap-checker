@@ -29,6 +29,7 @@ RENE-ASTRID: 3
 
 # Solution overview
 
+## Intro
 The exercise prompts us with a set of employee names, followed by coma separated groups of dates and times indicating when the employees were present in the office. The objective of the exercise is to compute the ammount of times the employees coincided in the office. This computation was performed by checking if any "overlap" exists between the schedules for every employee, and this is the word that's going to be used from this point forwards to refference this coincidence.
 
 
@@ -181,15 +182,16 @@ Instances of "ReportRenderer" and it's sub-classes have a method called "render"
 
 In the future, we were to implement a GUI to display the report, we just have to extend the "ReportRenderer" class and create a concrete implementation of the "render" method that fulfills the desired output.
 
-# Running the project
+# Running the app
 
 ## Requirements
 - Python version (3.10.0+)
-- Linux environment
+- Linux environment (recommended)
 
 ## Instructions
 
-Before you follow these instructions, on your terminal, cd into an empty folder.
+| NOTE: Before you follow these instructions, on your terminal, change directory into an empty folder |
+| --- |
 
 ### Create a virtual environment
 
