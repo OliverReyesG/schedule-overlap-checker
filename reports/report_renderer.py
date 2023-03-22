@@ -3,7 +3,7 @@ from typing import List, Tuple
 
 
 class ReportRenderer(ABC):
-    def render():
+    def render(report: List[Tuple[str, int]]):
         pass
 
 
