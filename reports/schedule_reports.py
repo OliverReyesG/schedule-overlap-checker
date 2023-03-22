@@ -4,7 +4,7 @@ from utils import FileParser
 from models.schedule import ScheduleRecord
 
 
-class EmployeeReport(ABC):
+class ScheduleReport(ABC):
     def __init__(self, parser: FileParser) -> None:
         self.parser = parser
     
@@ -13,7 +13,7 @@ class EmployeeReport(ABC):
         pass
 
 
-class ScheduleOverlapReport(EmployeeReport):
+class ScheduleOverlapReport(ScheduleReport):
 
     def check_time_overlap(self, record1: ScheduleRecord, record2: ScheduleRecord) -> bool:
         if record1.arrival_time >= record2.arrival_time and record1.leave_time <= record2.leave_time:
@@ -31,6 +31,8 @@ class ScheduleOverlapReport(EmployeeReport):
     
     def generate(self, path: str) -> List[Tuple[str, int]]:
         employees = self.parser.parse(path)
+        if len(employees) == 0:
+            return []
         schedule_overlap_report = []
         for i in range(len(employees) - 1):
             for j in range(i+1, len(employees)):
