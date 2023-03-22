@@ -26,5 +26,5 @@ def test_overlap_report(report):
 
 def test_report_types(report):
     for report_entry in report:
-        assert type(report_entry[0] is str)
-        assert type(report_entry[1] is str)
+        assert isinstance(report_entry[0], str)
+        assert isinstance(report_entry[1], int)
