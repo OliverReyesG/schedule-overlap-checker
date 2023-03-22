@@ -15,13 +15,18 @@ class FileParser(ABC):
 
 class EmployeeScheduleParser(FileParser):
     def __read_file(self, path: str) -> List[str]:
-        with open(path) as f:
-            return f.readlines()
+        try:
+            with open(path) as f:
+                return f.readlines()
+        except:
+            return []
 
 
     def parse(self, path: str) -> List[Employee]:
         employees = []
         file = self.__read_file(path)
+        if len(file) == 0:
+            return []
         name_pattern = r'([A-Z]+)='
         schedule_record_pattern = r'(([A-Z]{2})([\d]{2}:[\d]{2})\s*-\s*([\d]{2}:[\d]{2}))'
         for line in file:
