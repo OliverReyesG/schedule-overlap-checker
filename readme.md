@@ -66,6 +66,8 @@ class Employee:
     schedule_records: Dict[str, ScheduleRecord]
 ```
 
+Here's an example:
+
 ```python
 {"MO": ScheduleRecord, "TU": ScheduleRecord...}
 ```
